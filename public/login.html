@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HealthLens Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/global.css?v=3">
+    <link rel="stylesheet" href="css/auth.css?v=3">
+    <style>
+        :root {
+            --border: var(--border-light);
+        }
+
+        /* Auth specific overrides */
+        body {
+            background: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .auth-container {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            width: 380px;
+            box-shadow: 0 10px 30px rgba(58, 90, 64, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9em;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .toggle-btn:hover {
+            text-decoration: underline;
+            color: var(--primary-dark);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: var(--input-bg);
+            border: 1px solid var(--border-light);
+            color: var(--text-main);
+            border-radius: 8px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--primary);
+            background: var(--input-focus-bg);
+        }
+
+        button.action-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.1s, background 0.2s;
+            box-shadow: 0 4px 6px rgba(58, 90, 64, 0.2);
+        }
+
+        button.action-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .error {
+            color: var(--danger-color);
+            font-size: 0.9em;
+            text-align: center;
+            margin-top: 15px;
+            min-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="split-screen">
+        <!-- Left Panel: Brand & Mood -->
+        <div class="left-panel">
+            <div class="left-panel-content">
+                <h1>HealthLens</h1>
+                <p>Medical clarity, reimagined. Understand your health data with privacy-first AI.</p>
+            </div>
+        </div>
+
+        <!-- Right Panel: Forms -->
+        <div class="right-panel">
+            <div style="position:absolute; top:2rem; left:2rem;">
+                <button id="themeToggle" style="background:none; border:1px solid var(--border-light); border-radius:8px; padding:6px 8px; cursor:pointer; display:flex; align-items:center; color:var(--text-main);"></button>
+            </div>
+            <a href="index.html" class="back-link">← Back to Home</a>
+
+            <div class="auth-container">
+                <h2 id="formTitle">Welcome Back</h2>
+                <div class="subtitle" id="formSubtitle">Enter your details to access your account.</div>
+
+                <!-- Login Form -->
+                <div id="loginForm">
+                    <input type="email" id="loginEmail" placeholder="Email Address">
+                    <input type="password" id="loginPass" placeholder="Password">
+                    <button class="action-btn" id="btnLogin">Sign In</button>
+                    <div style="text-align:center;">
+                        <button class="toggle-btn" onclick="toggleForm('signup')">New here? Create an account</button>
+                    </div>
+                </div>
+
+                <!-- Sign Up Form -->
+                <div id="signupForm" class="hidden">
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" id="regName" placeholder="Full Name">
+                    </div>
+
+                    <input type="email" id="regEmail" placeholder="Email Address">
+                    <input type="password" id="regPass" placeholder="Password (min 6 chars)">
+
+                    <!-- Demographics Row -->
+                    <div style="display:flex; gap:10px;">
+                        <input type="number" id="regAge" placeholder="Age" style="width:40%">
+                        <select id="regSex" style="width:60%; margin:8px 0;">
+                            <option value="">Sex</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <select id="regRole" style="margin-top:5px;">
+                        <option value="patient">I am a Patient</option>
+                        <option value="doctor">I am a Doctor</option>
+                    </select>
+
+                    <button class="action-btn" id="btnSignup">Create Account</button>
+                    <div style="text-align:center;">
+                        <button class="toggle-btn" onclick="toggleForm('login')">Already have an account? Sign
+                            In</button>
+                    </div>
+                </div>
+
+                <div id="errorMsg" class="error"></div>
+
+                <div style="text-align:center; margin-top:25px; padding-top:15px; border-top:1px solid var(--border-light);">
+                    <a href="pages/audit.html"
+                        style="color:var(--secondary); text-decoration:none; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px;">
+                        <span>🛡️</span> View Security Logs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script type="module">
+        import { registerUser, loginUser } from "./js/auth.js";
+
+        // Toggle UI
+        window.toggleForm = (mode) => {
+            const loginEl = document.getElementById("loginForm");
+            const signupEl = document.getElementById("signupForm");
+            const title = document.getElementById("formTitle");
+            const subtitle = document.getElementById("formSubtitle");
+            const err = document.getElementById("errorMsg");
+
+            err.innerText = ""; // clear errors
+
+            if (mode === 'signup') {
+                loginEl.classList.add("hidden");
+                signupEl.classList.remove("hidden");
+                title.innerText = "Create Account";
+                subtitle.innerText = "Join HealthLens today for clarity and peace of mind.";
+            } else {
+                signupEl.classList.add("hidden");
+                loginEl.classList.remove("hidden");
+                title.innerText = "Welcome Back";
+                subtitle.innerText = "Enter your details to access your account.";
+            }
+        }
+
+        // Handlers
+        document.getElementById("btnSignup").addEventListener("click", async () => {
+            const email = document.getElementById("regEmail").value;
+            const pass = document.getElementById("regPass").value;
+            const role = document.getElementById("regRole").value;
+
+            const name = document.getElementById("regName").value;
+            const age = document.getElementById("regAge").value;
+            const sex = document.getElementById("regSex").value;
+
+            const err = document.getElementById("errorMsg");
+
+            if (!email || !pass) { err.innerText = "Please fill all fields."; return; }
+
+            try {
+                err.innerText = "Creating account...";
+                await registerUser(email, pass, role, { name, age, sex });
+
+                // Redirect
+                if (role === 'doctor') window.location.href = "pages/doctor.html";
+                else window.location.href = "pages/patient.html";
+
+            } catch (e) {
+                err.innerText = e.message.replace("Firebase:", "").replace("auth/", "");
+            }
+        });
+
+        document.getElementById("btnLogin").addEventListener("click", async () => {
+            const email = document.getElementById("loginEmail").value;
+            const pass = document.getElementById("loginPass").value;
+            const err = document.getElementById("errorMsg");
+
+            if (!email || !pass) { err.innerText = "Please fill all fields."; return; }
+
+            try {
+                err.innerText = "Signing in...";
+                const role = await loginUser(email, pass);
+
+                // Redirect
+                if (role === 'doctor') window.location.href = "pages/doctor.html";
+                else window.location.href = "pages/patient.html";
+
+            } catch (e) {
+                err.innerText = e.message.replace("Firebase:", "").replace("auth/", "");
+            }
+        });
+    </script>
+
+</body>
+
+</html>

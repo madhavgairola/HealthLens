@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Core Module Test</title>
+</head>
+
+<body>
+    <h1>Core Module Test</h1>
+    <p>Open Console (F12) to see results.</p>
+    <ul id="results"></ul>
+
+    <script type="module">
+        import { auth, db } from "./js/firebaseConfig.js";
+        import { logAccess } from "./js/audit/auditLog.js";
+        import { formatDate } from "./js/utils.js";
+
+        const results = document.getElementById("results");
+        function log(msg, success = true) {
+            const li = document.createElement("li");
+            li.textContent = msg;
+            li.style.color = success ? "green" : "red";
+            results.appendChild(li);
+            console.log(msg);
+        }
+
+        try {
+            log("Checking Firebase Auth...");
+            if (auth) log("✅ Auth Module Loaded");
+            else log("❌ Auth Module Failed", false);
+
+            log("Checking Firestore DB...");
+            if (db) log("✅ Firestore DB Module Loaded");
+            else log("❌ Firestore DB Module Failed", false);
+
+            log("Checking Utils...");
+            const dateStr = formatDate(new Date());
+            if (dateStr) log("✅ Utils Loaded: " + dateStr);
+            else log("❌ Utils Failed", false);
+
+            log("Testing Audit Log...");
+            logAccess("TEST_USER", "TEST_PATIENT");
+            log("✅ logAccess called (check console/firestore for write)");
+
+        } catch (error) {
+            log("❌ Critical Error: " + error.message, false);
+            console.error(error);
+        }
+    </script>
+</body>
+
+</html>

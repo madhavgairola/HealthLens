@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Module Test</title>
+</head>
+
+<body>
+    <h1>Doctor Module Test</h1>
+    <ul id="results"></ul>
+
+    <script type="module">
+        import { searchPatientWithConsent } from "./js/doctor/patientSearch.js";
+        import { loadPrescriptions, addPrescription } from "./js/doctor/prescriptions.js";
+
+        const results = document.getElementById("results");
+        function log(msg, success = true) {
+            const li = document.createElement("li");
+            li.textContent = msg;
+            li.style.color = success ? "green" : "red";
+            results.appendChild(li);
+            console.log(msg);
+        }
+
+        try {
+            log("Checking Doctor Modules...");
+
+            if (typeof searchPatientWithConsent === "function")
+                log("✅ patientSearch.js Module Loaded");
+            else log("❌ patientSearch.js Module Failed", false);
+
+            if (typeof loadPrescriptions === "function")
+                log("✅ prescriptions.js Module Loaded");
+            else log("❌ prescriptions.js Module Failed", false);
+
+        } catch (error) {
+            log("❌ Critical Error: " + error.message, false);
+            console.error(error);
+        }
+    </script>
+</body>
+
+</html>

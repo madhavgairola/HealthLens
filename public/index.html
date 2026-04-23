@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HealthLens - Medical Clarity</title>
+    <link rel="stylesheet" href="css/global.css" />
+    <!-- Simple Favicon (No emoji) -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23597e52%22/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Work+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Landing Page Specific Overrides */
+        body {
+            display: block;
+            /* Override flex centered body */
+            background: var(--bg-card);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Navbar --- */
+        nav {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-card);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .logo {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background-color: var(--bg-sidebar);
+            padding: 6rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 3.2rem;
+            line-height: 1.25;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--patient-report-text);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: right;
+            position: relative;
+        }
+
+        /* Abstract Medical Shape SVG if no image */
+        .hero-placeholder {
+            width: 100%;
+            height: 450px;
+            background: var(--btn-sec-bg);
+            border-radius: 4px;
+            /* Placeholder for a real image */
+            background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            box-shadow: -20px 20px 0 var(--primary-light);
+        }
+
+        /* --- Buttons --- */
+        .btn-large {
+            padding: 16px 36px;
+            font-size: 1.05rem;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .learn-more {
+            padding: 16px 36px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .learn-more:hover {
+            border-bottom-color: var(--primary-dark);
+        }
+
+        /* --- Features Section --- */
+        .features {
+            padding: 6rem 5%;
+            background: var(--bg-card);
+            text-align: center;
+        }
+
+        .features h2 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-dark);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: left;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-light);
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: var(--primary-light);
+            padding: 15px;
+            border-radius: 50%;
+            color: var(--primary);
+        }
+
+        .icon svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        .feature-card h3 {
+            font-family: 'Merriweather', serif;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* --- Mission / Deep Dive Section --- */
+        .mission {
+            padding: 6rem 5%;
+            background: var(--bg-body);
+            /* Warm off-white */
+            border-top: 1px solid var(--border-light);
+        }
+
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mission h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+        }
+
+        .mission h3 {
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .mission p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--patient-report-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-highlight {
+            border-left: 4px solid var(--secondary);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--text-soft);
+            font-size: 1.2rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary-dark);
+            color: #e2e8f0;
+            padding: 4rem 5%;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--secondary);
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        footer a:hover {
+            opacity: 1;
+        }
+
+        /* --- Hamburger Menu --- */
+        #menuToggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 8px;
+            color: var(--text-main);
+            z-index: 101;
+        }
+
+        #menuToggle svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+            }
+
+            #menuToggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-card);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--border-light);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 4rem 5%;
+                gap: 30px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-placeholder {
+                height: 300px;
+            }
+
+            .mission {
+                padding: 4rem 5%;
+            }
+
+            .features h2, .mission h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="logo">HealthLens</a>
+        <div class="nav-links">
+            <a href="#how-it-works">How it Works</a>
+            <a href="#mission">Our Mission</a>
+            <a href="pages/audit.html" style="color:var(--text-muted);">Security Logs</a>
+            <a href="login.html?role=doctor">Doctor Login</a>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+            <button id="themeToggle" style="background:none; border:1px solid var(--border-light); border-radius:8px; padding:6px 8px; cursor:pointer; display:flex; align-items:center; color:var(--text-main);"></button>
+            <a href="login.html?role=patient" class="btn-primary hide-xs"
+                style="padding:10px 20px; border-radius:4px; text-decoration:none;">Sign In</a>
+            <button id="menuToggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Understand your medical records instantly.</h1>
+            <p>Don't be overwhelmed by medical jargon. HealthLens translates your reports into clear, plain English,
+                helping you advocate for your own well-being.</p>
+            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <a href="login.html?role=patient" class="btn-primary btn-large">Get Started</a>
+                <a href="#mission" class="learn-more">Learn More</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="hero-placeholder"></div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="how-it-works">
+        <h2>Why HealthLens?</h2>
+        <div class="grid">
+            <div class="feature-card">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+                    </svg>
+                </div>
+                <h3>AI-Powered Clarity</h3>
+                <p>Upload any PDF medical report. Our system analyzes the clinical data and rewrites it in simple,
+                    everyday language that actually makes sense.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1z" />
+                    </svg>
+                </div>
+                <h3>Medication Tracking</h3>
+                <p>Keep track of your prescriptions without the headache. Simple daily check-ins and an organized
+                    history help you stay consistent.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+                    </svg>
+                </div>
+                <h3>Secure & Private</h3>
+                <p>Your health data is sensitive. We treat it that way. Strict access controls ensure only doctors you
+                    allow can ever see your records.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MISSION / DEEP DIVE -->
+    <section class="mission" id="mission">
+        <div class="mission-content">
+            <h2>Bridging the gap between data and understanding.</h2>
+
+            <p>We built HealthLens because we know the anxiety of holding a medical report you don't understand. Blood
+                tests, discharge summaries, and prescriptions are often written in a language that feels foreign. When
+                you don't understand your health, you can't advocate for it.</p>
+
+            <div class="mission-highlight">
+                It's like having a compassionate medical student sitting next to you, explaining every line.
+            </div>
+
+            <p>Our platform changes that dynamic. Using advanced language models, we don't just "summarize"—we
+                translate. We take the raw clinical data intended for doctors and create a parallel explanation designed
+                for <strong>you</strong>.</p>
+
+            <h3>Why Context Matters</h3>
+            <p>A number on a page is just a statistic. Understanding what that number means for your daily life is
+                knowledge. HealthLens contextualizes your results, explaining not just "what" but "why".</p>
+
+            <h3>Action, Not Just Information</h3>
+            <p>Beyond understanding, we focus on action. Tracking medications shouldn't require a spreadsheet. Managing
+                privacy shouldn't require a law degree. We designed every feature—from our Daily Check-ins to our
+                granular access controls—to put you back in the driver's seat of your own well-being.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 HealthLens Platform.</p>
+    </footer>
+
+    <script src="js/theme.js"></script>
+</body>
+
+</html>

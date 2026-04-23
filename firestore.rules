@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    // ---------------------------------------------------------
+    // HELPER FUNCTIONS
+    // ---------------------------------------------------------
+    
+    // Check if the current logged-in user is a Doctor based on their Users profile.
+    function isDoctor() {
+      return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'doctor';
+    }
+
+    // ---------------------------------------------------------
+    // COLLECTION RULES
+    // ---------------------------------------------------------
+
+    // 1. Users Lookup (Authentication profiles)
+    match /users/{userId} {
+      // Anyone logged in can read to lookup UID by email
+      allow read: if request.auth != null;
+      // Users can only create and update their own identity
+      allow write: if request.auth.uid == userId;
+    }
+
+    // 2. Patients (Profile & PDF Medical Reports)
+    match /patients/{patientId} {
+      // Patients can freely read/write their own profiles
+      allow create, read, update, delete: if request.auth.uid == patientId;
+      // Doctors can read/write any patient profile (e.g. searching, processing PDFs)
+      // *Note: App logic currently intercepts unconsented access via the consents collection*
+      allow create, read, update, delete: if isDoctor();
+    }
+
+    // 3. Doctors Profile
+    match /doctors/{doctorId} {
+      // Publicly readable for lookup
+      allow read: if request.auth != null;
+      // Only the doctor creates/updates it
+      allow write: if request.auth.uid == doctorId;
+    }
+
+    // 4. Prescriptions
+    match /prescriptions/{prescriptionId} {
+      // Logged in users can read (Patients reading their own dashboard, Doctors reading search)
+      allow read: if request.auth != null;
+      // Doctors can issue prescriptions
+      allow write: if isDoctor();
+    }
+
+    // 5. Consents Array
+    match /consents/{patientId} {
+      // Patients control their own consent
+      allow write: if request.auth.uid == patientId;
+      // Anyone logged in can read (Doctors checking before displaying records)
+      allow read: if request.auth != null;
+    }
+
+    // 6. Consent Requests
+    match /consent_requests/{requestId} {
+      // Any authenticated user can read or write (Patients approving, Doctors creating)
+      // Ideally this would be tightly coupled to their own UID, but generalized for the prototype.
+      allow read, write: if request.auth != null;
+    }
+
+    // 7. Audit Logs
+    match /auditLogs/{logId} {
+      // Read access allowed for all authenticated users (So the auditViewer works properly)
+      allow read: if request.auth != null;
+      // Doctors create access logs
+      allow write: if isDoctor();
+    }
+  }
+}

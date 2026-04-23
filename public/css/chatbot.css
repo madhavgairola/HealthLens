@@ -1,0 +1,181 @@
+/* Chatbot Container */
+#healthlens-chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Floating Action Button */
+.hl-chat-fab {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary);
+    /* GREEN */
+    color: white;
+    font-size: 30px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hl-chat-fab:hover {
+    transform: scale(1.1);
+}
+
+.hl-chat-fab.hidden {
+    display: none;
+}
+
+/* Chat Window */
+/* Chat Window */
+.hl-chat-window {
+    width: 35vw;
+    min-width: 320px;
+    max-width: 500px;
+    height: calc(100vh - 40px);
+    max-height: 900px;
+    background: var(--chat-window-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Position Handling if container is relative or fixed */
+    /* The container #healthlens-chatbot-container is fixed bottom:20 right:20 */
+    /* So this window just fills that space? No, container is wrapper. */
+    /* Let's keep container as anchor. */
+}
+
+.hl-chat-window.hidden {
+    display: none;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
+/* Header */
+.hl-chat-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+#hl-close-chat {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#hl-close-chat:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Messages */
+.hl-chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: var(--header-report-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hl-message {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 0.95em;
+    line-height: 1.5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    position: relative;
+}
+
+.hl-message.bot {
+    align-self: flex-start;
+    background: var(--bg-card);
+    border: 1px solid var(--header-report-hover);
+    color: var(--chat-bot-text);
+    border-bottom-left-radius: 4px;
+}
+
+.hl-message.user {
+    align-self: flex-end;
+    background: var(--primary);
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+.hl-message.loading {
+    font-style: italic;
+    color: var(--text-placeholder);
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* Input Area */
+.hl-chat-input-area {
+    padding: 10px;
+    background: var(--bg-card);
+    border-top: 1px solid var(--btn-sec-bg);
+    display: flex;
+    gap: 10px;
+}
+
+#hl-chat-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--btn-sec-bg);
+    border-radius: 20px;
+    outline: none;
+}
+
+#hl-send-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

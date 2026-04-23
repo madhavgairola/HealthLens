@@ -1,0 +1,169 @@
+:root {
+    /* Primary / Action */
+    --primary: #597e52;
+    /* Sage Green - Calm, Medical */
+    --primary-dark: #3a5a40;
+    --primary-light: #c6dec6;
+
+    /* Secondary / Accents */
+    --secondary: #d4a373;
+    /* Warm Earth/Sand */
+    --accent: #f4d35e;
+    /* Muted Gold */
+
+    /* Backgrounds */
+    --bg-body: #fdfcf8;
+    /* Very Soft Cream/Beige */
+    --bg-card: #ffffff;
+    /* Pure White */
+    --bg-sidebar: #f1f5f1;
+    /* Very Light Sage Mist */
+
+    /* Text */
+    --text-main: #344e41;
+    /* Deep Forest Green (readable black alternative) */
+    --text-muted: #739072;
+    /* Soft Greenish Gray */
+    --text-light: #e6ebe6;
+
+    /* Borders */
+    --border-light: #dad7cd;
+
+    /* Semantic UI Elements */
+    --input-bg: #fafaf9;
+    --input-focus-bg: #ffffff;
+    --header-report-bg: #f8fafc;
+    --header-report-hover: #f1f5f9;
+    --header-report-open: #f0fdf4;
+    --btn-del-bg: #fee2e2;
+    --btn-del-color: #991b1b;
+    --btn-del-hover: #fecaca;
+    --btn-sec-bg: #e2e8f0;
+    --btn-sec-hover: #cbd5e1;
+    --btn-deny-bg: #ffffff;
+    --btn-deny-color: #ef4444;
+    --patient-report-bg: linear-gradient(to right, #ffffff, #fafdfa);
+    --patient-report-text: #4b5563;
+    --danger-color: #ef4444;
+    --text-secondary: #64748b;
+    --text-soft: #555555;
+    --text-softer: #666666;
+    --text-placeholder: #888888;
+    --chat-window-bg: rgba(255, 255, 255, 0.98);
+    --chat-bot-text: #334155;
+}
+
+[data-theme="dark"] {
+    --bg-body: #121212;
+    --bg-card: #1f1f1f;
+    --bg-sidebar: #181c18;
+    --text-main: #e0e6ed;
+    --text-muted: #94a3b8;
+    --border-light: #334155;
+    /* Primary dims slightly to reduce neon eye strain in dark mode */
+    --primary: #4f7348;
+
+    /* Semantic UI Elements (Dark Mode Overrides) */
+    --input-bg: #2d3748;
+    --input-focus-bg: #1f2937;
+    --header-report-bg: #1e293b;
+    --header-report-hover: #334155;
+    --header-report-open: #2e3d36;
+    --btn-del-bg: #451a1a;
+    --btn-del-color: #fca5a5;
+    --btn-del-hover: #7f1d1d;
+    --btn-sec-bg: #334155;
+    --btn-sec-hover: #475569;
+    --btn-deny-bg: transparent;
+    --btn-deny-color: #f87171;
+    --patient-report-bg: linear-gradient(to right, #1f1f1f, #1a1a1a);
+    --patient-report-text: #cbd5e1;
+    --danger-color: #fca5a5;
+    --text-secondary: #94a3b8;
+    --text-soft: #cbd5e1;
+    --text-softer: #94a3b8;
+    --text-placeholder: #64748b;
+    --chat-window-bg: rgba(31, 31, 31, 0.98);
+    --chat-bot-text: #e2e8f0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Inter, Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+}
+
+/* Global Transitions */
+* {
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+/* Common Card Style */
+.card-medical {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(58, 90, 64, 0.05);
+    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+}
+
+.card-medical:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(58, 90, 64, 0.12);
+}
+
+/* Common Buttons */
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: transform 0.1s ease, background 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(89, 126, 82, 0.3);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* --- Responsive Utilities --- */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    h1 { font-size: 2.2rem !important; }
+    h2 { font-size: 1.8rem !important; }
+    h3 { font-size: 1.4rem !important; }
+}
+
+@media (max-width: 480px) {
+    .hide-xs { display: none !important; }
+    .full-width-xs { width: 100% !important; }
+}

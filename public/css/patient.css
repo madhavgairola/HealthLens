@@ -1,0 +1,169 @@
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    min-height: 100vh;
+}
+
+.content {
+    padding: 2.5rem;
+    background: var(--bg-card);
+}
+
+.sidebar {
+    background: var(--bg-sidebar);
+    padding: 1.5rem;
+    border-left: 1px solid var(--border-light);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+}
+
+@media (max-width: 992px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        height: auto;
+        position: static;
+        border-left: none;
+        border-top: 1px solid var(--border-light);
+        padding: 1.5rem;
+    }
+
+    .content {
+        padding: 1.5rem 1rem;
+    }
+    
+    #patientContent {
+        padding: 1.5rem !important;
+    }
+    
+    .content h2 {
+        font-size: 1.6rem !important;
+        margin-bottom: 1rem !important;
+    }
+}
+
+h2 {
+    color: var(--primary-dark);
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: var(--secondary);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Patient Report Card */
+.patient-report-card {
+    background: var(--patient-report-bg);
+    border: 1px solid var(--border-light);
+    border-left: 5px solid var(--secondary);
+    /* Sand color for patient warmth */
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: default;
+}
+
+.patient-report-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    border-color: var(--secondary);
+}
+
+.report-content-patient {
+    font-size: 1.25rem;
+    /* Even larger for patients */
+    line-height: 1.8;
+    color: var(--patient-report-text);
+}
+
+.btn-group button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+}
+
+.safe {
+    background: var(--primary);
+    color: white;
+}
+
+/* Notification / Request Cards */
+.request-card {
+    background: var(--bg-card);
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(89, 126, 82, 0.1);
+}
+
+.request-card h5 {
+    margin: 0 0 5px 0;
+    color: var(--primary-dark);
+    font-size: 1rem;
+}
+
+.request-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.btn-allow {
+    flex: 1;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.btn-deny {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+/* Authorized List */
+.auth-doctor-item {
+    font-size: 0.9em;
+    padding: 8px;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-revoke-mini {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    font-size: 0.8em;
+    text-decoration: underline;
+}
+
+.danger {
+    background: var(--bg-card);
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+}
